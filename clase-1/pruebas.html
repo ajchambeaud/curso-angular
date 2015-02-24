@@ -1,0 +1,61 @@
+<html ng-app="app">
+    <head>
+        <title>Clase 1 - AngularJS</title>
+        <style>
+        
+            #container{
+                padding: 20px;
+                background-color: yellow;
+            }
+
+            #hijo {
+                padding: 20px;
+                background-color: white;
+            }
+            
+        </style>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script>
+            
+            var app = angular.module("app", []);
+            
+            app.controller("mainController", function($scope){
+                
+                this.titulo = "AngularJS - Clase 1";
+                
+                this.nombre = "Ainu";
+                
+            });
+           
+            app.controller("otroController", function($scope){
+                
+                this.foo = "bar";
+                this.titulo = "Otro Titulo";
+                
+                console.log("Accediendo a variables del padre");
+                
+                console.log($scope.main.nombre);
+            });
+            
+            
+        </script>
+    </head>
+    <body>
+        <div id="container" ng-controller="mainController as main">
+            
+            <h1>{{main.titulo}}</h1>
+            
+            <input type="text" ng-model="main.nombre" value=""/>
+            
+            <p>{{main.nombre}}</p>
+            
+            <div ng-controller="otroController as otro" id="hijo">
+                
+                <input type="text" ng-model="main.nombre" value=""/>
+                <p>{{main.nombre}}</p>
+                <p>{{otro.titulo}}</p>
+            </div>
+            
+        </div>
+    </body>
+</html>

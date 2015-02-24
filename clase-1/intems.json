@@ -1,0 +1,74 @@
+[
+    { 
+        name : "Cloak of Agility",
+        cost : 10
+    },
+    { 
+        name : "Phage",
+        cost : 7
+    },
+    { 
+        name : "Pickaxe",
+        cost : 8
+    },
+    { 
+        name : "Archangel's Staff",
+        cost : 6
+    },
+    { 
+        name : "Tear of the Goddess",
+        cost : 12
+    },
+    { 
+        name : "Rod of Ages",
+        cost : 15
+    },
+    { 
+        name : "Doran's Ring",
+        cost : 20
+    },
+    { 
+        name : "Boots of Swiftness",
+        cost : 6
+    },
+    { 
+        name : "Chalice of Harmony",
+        cost : 13
+    },
+    { 
+        name : "Aegis of the Legion",
+        cost : 15
+    },
+    { 
+        name : "Sapphire Crystal",
+        cost : 16
+    },
+    { 
+        name : "Atma's Impaler",
+        cost : 10
+    },
+    { 
+        name : "Feral Flare",
+        cost : 10
+    },
+    { 
+        name : "Hexdrinker",
+        cost : 12
+    },
+    { 
+        name : "Rabadon's Deathcap",
+        cost : 7
+    },
+    { 
+        name : "Zhonya's Hourglass",
+        cost : 23
+    },
+    { 
+        name : "Ionian Boots of Lucidity",
+        cost : 7
+    },
+    { 
+        name : "Negatron Cloak",
+        cost : 10
+    }
+]

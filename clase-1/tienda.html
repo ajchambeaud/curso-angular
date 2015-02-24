@@ -1,0 +1,250 @@
+<html ng-app="tienda">
+    <head>
+        <title>Tienda RPG</title>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <style>
+
+            .form-inline{
+                width: 100%;
+            }
+            
+            .form-inline .form-group {
+                width: 80%;
+            }
+            
+            .form-inline .form-group .input-group{
+                width: 100%;
+            }
+            
+            .form-inline button {
+                width: 18%;
+            }
+            
+            .well .row{
+                margin-bottom: 10px;
+                margin-top: 2px;
+            }
+            
+            .list-arrows{
+                margin-top: 100px;
+            }
+        </style>
+        
+        <script>
+            var tienda = angular.module("tienda", []);
+            
+            tienda.controller("MainController", function($window){
+                this.listaTiendaCheckAll = false;
+                this.listaUsuarioCheckAll = false;
+                this.listaTienda = [
+                    { 
+                        name : "Pickaxe",
+                        cost : 8
+                    },
+                    { 
+                        name : "Archangel's Staff",
+                        cost : 6
+                    },
+                    { 
+                        name : "Tear of the Goddess",
+                        cost : 12
+                    },
+                    { 
+                        name : "Rod of Ages",
+                        cost : 15
+                    }
+                ];
+                
+                this.listaUsuario = [
+                    { 
+                        name : "Cloak of Agility",
+                        cost : 10
+                    },
+                    { 
+                        name : "Phage",
+                        cost : 7
+                    }
+                ];
+                
+                this.toggleSelectItem = function(item){
+                    item.selected = item.selected || false;
+                    item.selected = !item.selected;
+                    console.log(item);
+                };
+                
+                this.selectAll = function(lista){
+                    lista.forEach(function(item){
+                        item.selected = true;
+                    });
+                };
+                
+                this.unselectAll = function(lista){
+                    lista.forEach(function(item){
+                        item.selected = false;
+                    });
+                };
+            
+                this.toggleTiendaItems = function(){
+                    if(this.listaTiendaCheckAll){
+                        this.unselectAll(this.listaTienda);
+                        this.listaTiendaCheckAll = false;
+                    }else{
+                        this.selectAll(this.listaTienda);
+                        this.listaTiendaCheckAll = true;
+                    } 
+                };
+                
+                this.toggleUsuarioItems = function(){
+                    if(this.listaUsuarioCheckAll){
+                        this.unselectAll(this.listaUsuario);
+                        this.listaUsuarioCheckAll = false;
+                    }else{
+                        this.selectAll(this.listaUsuario);
+                        this.listaUsuarioCheckAll = true;
+                    } 
+                };
+                
+                this.moveToUsuario = function(){
+                    var main = this;
+                    this.listaTienda = this.listaTienda.filter(function(item){
+                        item.selected = item.selected || false;
+                        if(item.selected){
+                            main.listaUsuario.push(item);
+                        }
+                        return !item.selected;
+                    });
+                };
+                
+                this.moveToTienda = function(){
+                    var main = this;
+                    this.listaUsuario = this.listaUsuario.filter(function(item){
+                        item.selected = item.selected || false;
+                        if(item.selected){
+                            main.listaTienda.push(item);
+                        }
+                        return !item.selected;
+                    });
+                };
+
+            });
+        </script>
+       
+    </head>
+    <body>
+        <div class="container" ng-controller="MainController as main">
+            <br />
+            
+            <div class="row">
+                
+                <!-- <BOX_TIENDA> -->
+                <div class="dual-list list-left col-md-5">
+		        <h2>Tienda</h2>
+                <div class="well text-right">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-inline">
+                              <!-- <BOX_TIENDA_INPUT_BUSQUEDA> -->    
+                              <div class="form-group">
+                                <div class="input-group busqueda-group">
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                  </span>
+                                  <input ng-model="main.filtroTienda.name" type="text" class="form-control" placeholder="Buscar">
+                                </div>
+                              </div>
+                              <!-- </BOX_TIENDA_INPUT_BUSQUEDA> -->    
+                              <!-- <BOX_TIENDA_SELECT_ALL> -->  
+                              <button class="btn btn-default" ng-click="main.toggleTiendaItems()">
+                                  &nbsp;
+                                  <i class="glyphicon" 
+                                     ng-class="main.listaTiendaCheckAll ? 'glyphicon-check' : 'glyphicon-unchecked'"> 
+                                  </i>
+                                  &nbsp;
+                              </button>
+                              <!-- </BOX_TIENDA_SELECT_ALL> -->
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <BOX_TIENDA_LISTADO> -->  
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-group">
+                                <li ng-click="main.toggleSelectItem(item)" 
+                                    ng-repeat="item in main.listaTienda | filter:main.filtroTienda"
+                                    ng-class="{active : item.selected}"
+                                    class="list-group-item">
+                                    {{item.name | uppercase}}
+                                </li>
+                            </ul>
+                        </div>   
+                    </div>
+                    <!-- </BOX_TIENDA_LISTADO> -->
+                </div>
+                </div>
+                <!-- </BOX_TIENDA> -->
+                
+                <!-- <MOVE_BUTTONS> -->
+                <div class="list-arrows col-md-1 text-center">
+                    <button ng-click="main.moveToTienda()" class="btn btn-default btn-sm move-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </button>
+
+                    <button ng-click="main.moveToUsuario()" class="btn btn-default btn-sm move-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+                <!-- </MOVE_BUTTONS> -->
+                
+                <!-- <BOX_USUARIO> -->
+                <div class="dual-list list-right col-md-5">
+		        <h2>Equipo</h2>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-inline">
+                              <!-- <BOX_USUARIO_SELECT_ALL> -->
+                              <button class="btn btn-default" ng-click="main.toggleUsuarioItems()">
+                                  &nbsp;
+                                  <i class="glyphicon" 
+                                     ng-class="main.listaUsuarioCheckAll ? 'glyphicon-check' : 'glyphicon-unchecked'"> 
+                                  </i>
+                                  &nbsp;
+                              </button>
+                              <!-- </BOX_USUARIO_SELECT_ALL> -->
+                              <!-- <BOX_USUARIO_INPUT_BUSQUEDA> -->    
+                              <div class="form-group">
+                                <div class="input-group busqueda-group">
+                                  <input ng-model="main.filtroUsuario.name" type="text" class="form-control" placeholder="Buscar">
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                  </span>
+                                </div>
+                              </div>
+                              <!-- </BOX_USUARIO_INPUT_BUSQUEDA> -->     
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <BOX_USUARIO_LISTADO> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-group">
+                                <li ng-click="main.toggleSelectItem(item)" 
+                                    ng-repeat="item in main.listaUsuario | filter: main.filtroUsuario"
+                                    ng-class="{active : item.selected}"
+                                    class="list-group-item">
+                                    {{item.name | uppercase}}
+                                </li>
+                            </ul>
+                        </div>   
+                    </div>
+                    <!-- </BOX_USUARIO_LISTADO> -->
+                </div>
+                </div>
+                <!-- </BOX_USUARIO> -->
+                
+            </div>
+        </div>
+    </body>
+</html>
+

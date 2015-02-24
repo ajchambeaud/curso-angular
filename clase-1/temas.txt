@@ -1,0 +1,18 @@
+1) AngularJS como Framework MVC
+2) Single Page Aplication
+3) Modulos en AngularJS. Definiendo un Modulo PPAL
+4) Controllers y Templates: Relación con el scope
+5) Controladores anidados y su impacto en el scope
+5) Directivas: 
+
+ng-app
+
+ng-controller
+
+ng-model
+
+ng-repeat
+
+ng-click
+
+n-class
