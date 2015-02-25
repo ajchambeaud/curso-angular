@@ -1,0 +1,59 @@
+<html lang="es" ng-app="app">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Filters y Directives</title>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="app/app.js"></script>
+        <script src="app/controllers.js"></script>
+        <script src="app/directives.js"></script>
+        <script src="app/filters.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    </head>
+
+    <body ng-controller="MainController">
+
+        <h1>{{titulo}}</h1>
+        
+        <!-- la directiva ng-bind es equivalente a usar doble llave -->
+        
+        <h2 ng-bind="titulo"></h2>
+        
+        <!-- sin embargo si queremos agregar texto que contenga html -->
+        <!-- debemos usar ng-bind-html, y el texto debe estar sanitizado usando $sce -->
+        <!-- ver codigo del filter "bolder" -->
+        
+        <h2 ng-bind-html="titulo | bolder"></h2>
+        
+        <hr>
+        DIRECTIVAS
+        <hr>
+        
+        <!-- Ejemplos de creación de directivas personalizadas -->
+        
+        <test text="Hola Directive" body="descripcion" saludo="saludar(titulo)">
+            <p>Un Parrafo interno!!</p>
+        </test>
+        
+        <div ng-controller="AlertController as ac">
+        
+            <alert close="ac.hideAlert()" 
+                   title="ac.alertTitle"
+                   description="ac.alertBody"
+                   type="ac.alertType"
+                   visible="ac.alertShow">
+            </alert>
+
+            <button ng-click="ac.testAlert()">Mostrar Alert</button>
+            
+        </div>
+                      
+        <hr>
+        FILTROS
+        <hr>
+        
+        <input ng-model="url" placeholder="pega la url"/>
+        
+        <p ng-show="url">{{url | urlEncode}}</p>
+    </body>
+</html>
