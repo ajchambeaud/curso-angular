@@ -70,7 +70,7 @@ function listCategorias(){
     $categorias = array();
     if ($resultado = $c->query($query)) {
         while ($fila = $resultado->fetch_assoc()) {
-            $categorias[] = array_map('utf8_encode', $fila);
+            $categorias[] = $fila;
         }
         $resultado->free();
         sendResult(array("categorias" => $categorias), "Ok");

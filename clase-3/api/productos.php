@@ -81,7 +81,7 @@ function listProductos(){
     $productos = array();
     if ($resultado = $c->query($query)) {
         while ($fila = $resultado->fetch_assoc()) {
-            $productos[] = array_map('utf8_encode', $fila);
+            $productos[] = $fila;
         }
         $resultado->free();
         sendResult(array("productos" => $productos), "Ok");

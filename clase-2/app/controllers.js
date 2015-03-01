@@ -30,6 +30,6 @@ app.controller("AlertController", function(){
     }
     
     this.testAlert = function(){
-        this.showAlert("Warning!",  "Cuidado, algo malo podría haber pasado", "warning");
+        this.showAlert("Warning!",  "Cuidado, algo malo podría haber pasado", "success");
     }
 });

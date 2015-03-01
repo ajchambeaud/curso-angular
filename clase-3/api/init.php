@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');  
 header('Content-Type: application/json; charset=utf-8');
 
 const DB_HOST = "localhost";
@@ -38,6 +38,8 @@ function sendResult($data, $msg){
 }
 
 function sendError($error){
+    http_response_code(400);
+    $result["error"] = true;
     $result["message"] = $error;
     die(json_encode($result));
 }
