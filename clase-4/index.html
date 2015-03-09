@@ -1,0 +1,40 @@
+<html lang="es" ng-app="backendEcommerce">
+    <head>
+        <title>Clase 4 - AngularJS</title>
+        <base href="/clase-4/">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        
+        <script src="app/app.js"></script>
+        <script src="app/MainController.js"></script>
+        
+        <script src="app/categorias/categorias.js"></script>
+        <script src="app/categorias/CategoriasController.js"></script>
+        
+        <script src="app/productos/productos.js"></script>
+        <script src="app/productos/ProductosController.js"></script>
+        
+        <script src="app/common/services/CategoriaService.js"></script>
+        
+        <script src="app/common/directives/NavDirective.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        
+        <style>
+        body { padding-top: 70px; }
+        </style>
+    </head>
+    <body>
+        <div id="container" ng-controller="MainController as main">
+            
+            <!-- <Menu> -->
+            <menu></menu>
+            <!-- </Menu> -->
+            
+            <div class="container" ui-view></div>
+            
+            
+        </div>
+    </body>
+</html>
