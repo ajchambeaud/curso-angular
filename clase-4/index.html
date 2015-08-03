@@ -1,13 +1,16 @@
 <html lang="es" ng-app="backendEcommerce">
     <head>
-        <title>Clase 4 - AngularJS</title>
-        <base href="/clase-4/">
+        <title>Clase 3 - AngularJS</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-        
+
         <script src="app/app.js"></script>
         <script src="app/MainController.js"></script>
+        
+        <script src="app/common/services/CategoriaService.js"></script>
+        <script src="app/common/services/ProductoService.js"></script>
+        <script src="app/common/directives/MenuDirective.js"></script>
         
         <script src="app/categorias/categorias.js"></script>
         <script src="app/categorias/CategoriasController.js"></script>
@@ -15,10 +18,6 @@
         <script src="app/productos/productos.js"></script>
         <script src="app/productos/ProductosController.js"></script>
         
-        <script src="app/common/services/CategoriaService.js"></script>
-        
-        <script src="app/common/directives/NavDirective.js"></script>
-
         <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         
         <style>
@@ -29,11 +28,19 @@
         <div id="container" ng-controller="MainController as main">
             
             <!-- <Menu> -->
-            <menu></menu>
+            
+            <menu brand="main.brand" is-active="main.isActive(section)"></menu>
+            
             <!-- </Menu> -->
             
-            <div class="container" ui-view></div>
+            <!-- <Section> -->
             
+            <div class="container" ui-view>
+
+            </div>
+
+            <!-- </Section> -->
+
             
         </div>
     </body>

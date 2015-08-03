@@ -1,13 +1,18 @@
-var app = angular.module("app");
+var tienda = angular.module("tienda");
 
-app.filter("urlEncode", function($window){
-    return function(url){
-        return $window.encodeURIComponent(url);
-    }
+tienda.filter("dolar", function(){
+    return function(text){
+        return "u$s " + text;
+    };
 });
 
-app.filter("bolder", function($sce){
-    return function(text){
-        return $sce.trustAsHtml('<b>'+text+'</b>');
-    }
+tienda.filter("limitar", function(){
+    return function(text, charLimit){
+        text = text || "";
+        if (text.length > charLimit){
+            return text.substring(0,charLimit);
+        }else{
+            return text;
+        }
+    };
 });

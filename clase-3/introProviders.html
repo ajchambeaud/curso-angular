@@ -1,0 +1,141 @@
+<html lang="es" ng-app="app">
+    <head>
+        <title>Clase 3 - AngularJS</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="bower_components/angular/angular.min.js"></script>
+
+        <script>
+            var app = angular.module("app", []);
+            
+            app.config(function($provide, saludoProvider){
+            
+                $provide.decorator("saludoValue", function($delegate){
+                    $delegate.hello += "!!!";
+                    return $delegate;
+                });
+                
+                saludoProvider.setDefaults("Hola, ", "Chau, ", "Mundo!!");
+                
+                /*
+                No se puede usar decoradores en proividers de tipo constant!!
+                $provide.decorator("saludoConstant", function($delegate){
+                    $delegate.hello += "!!!";
+                    return $delegate;
+                });                
+                */
+            })
+            
+            //Providers
+            
+            app.value("saludoValue", {
+                hello : "Hola Mundo",
+                bye : "Chau Mundo"
+            });
+            
+            app.constant("saludoConstant", {
+                hello : "Hola Mundo",
+                bye : "Chau Mundo"
+            });
+            
+            app.factory("saludoFactory", function(){
+            
+                var helloText = "Hola Mundo";
+                var byeText = "Chau Mundo";
+                
+                return {
+                    hello : helloText,
+                    
+                    bye : byeText,
+                    
+                    saludar : function(){
+                        return "Hola";
+                    }
+                }
+                
+            });
+            
+            app.service("saludoService", function(){
+            
+                var helloText = "Hola Mundo";
+                var byeText = "Chau Mundo";
+                
+                this.hello = helloText;
+                
+                this.bye = byeText;
+                
+                this.saludar = function(){
+                    return hello;
+                }
+            
+            });
+            
+            app.provider("saludo", function(){
+            
+                this.helloText = "Hello";
+                this.byeText = "Bye";
+                this.subject = "World";
+                
+                this.setDefaults = function(hello, bye, subject){
+                    this.helloText = hello;
+                    this.byeText = bye;
+                    this.subject = subject;
+                };
+                
+                this.$get = function(){
+                    var helloGreet = this.helloText + " " + this.subject;
+                    var byeGreet = this.byeText + " " + this.subject;
+                    
+                    return {
+                        hello : helloGreet,
+                        bye : byeGreet
+                    }
+                };
+                
+            });
+            
+            
+            
+            
+            app.controller("MainController", function(saludoValue, saludoConstant, saludoFactory, saludoService, saludo){
+            
+                this.valueTxt = saludoValue.hello;
+                this.constantTxt = saludoConstant.bye;
+                this.factoryTxt = saludoFactory.saludar();
+                this.serviceTxt = saludoService.bye;
+                this.providerTxt = saludo.hello;
+                
+                saludoConstant.bye = "Bye bye...";
+                
+            });
+            
+            app.controller("OtherController", function(saludoConstant, saludoValue){
+            
+                this.valueTxt = saludoValue.hello;
+                this.constantTxt = saludoConstant.bye;
+                
+            });
+            
+            
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        
+        <style>
+        body { padding-top: 70px; }
+        </style>
+    </head>
+    <body>
+        
+        <div id="container" ng-controller="MainController as main">
+            <h1>{{main.providerTxt}}</h1>
+            <h1>{{main.valueTxt}}</h1>
+            <h1>{{main.constantTxt}}</h1>
+            <h1>{{main.factoryTxt}}</h1>
+        </div>
+        
+        <div ng-controller="OtherController as other">
+            <h2>{{other.valueTxt}}</h2>
+            <h2>{{other.constantTxt}}</h2>
+        </div>
+    </body>
+</html>

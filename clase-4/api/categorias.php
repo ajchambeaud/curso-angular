@@ -5,9 +5,6 @@ require_once("init.php");
 if(isset($_GET["action"])){
     $action = $_GET["action"];
     switch ($action) {
-        case "get":
-            getCategoria();
-            break;
         case "list":
             listCategorias();
             break;
@@ -77,19 +74,6 @@ function listCategorias(){
         }
         $resultado->free();
         sendResult(array("categorias" => $categorias), "Ok");
-    }else{
-        sendError("No se encontraron resultados");
-    }
-}
-
-function getCategoria(){
-    $c = getConnection();
-    $id = (int) $c->real_escape_string(request('categoria_id'));
-    $query = "SELECT * FROM categorias WHERE categoria_id=$id";
-    if ($resultado = $c->query($query)) {
-        $cat = $resultado->fetch_assoc();
-        $resultado->free();
-        sendResult(array("categoria" => $cat), "Ok");
     }else{
         sendError("No se encontraron resultados");
     }

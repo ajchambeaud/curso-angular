@@ -1,6 +1,6 @@
 var backendEcommerce = angular.module("backendEcommerce");
 
-backendEcommerce.controller("CategoriasController", ["$window", "CategoriaService", function($window, CategoriaService){
+backendEcommerce.controller("CategoriasController", function($window, CategoriaService){
 
     this.categorias = [];
     this.selected = false;
@@ -8,12 +8,12 @@ backendEcommerce.controller("CategoriasController", ["$window", "CategoriaServic
     this.nueva = {};
     this.formLabel = "Nueva Categoria";
     
-    this.loadCategorias = function(){
+    this.getCategorias = function(){
         var self = this;
         CategoriaService.getCategorias().then(
             function(data){
                 self.categorias = data.categorias;
-                console.log("loadCategorias OK");
+                console.log("getCategorias OK");
                 console.log(data);
             },
             function(errorData){
@@ -28,7 +28,7 @@ backendEcommerce.controller("CategoriasController", ["$window", "CategoriaServic
         CategoriaService.createCategoria(categoria).then(
             function(data){
                 self.nuevaCategoria();
-                self.loadCategorias();
+                self.getCategorias();
             },
             function(errorData){
                 $window.alert("ERROR!");
@@ -42,7 +42,7 @@ backendEcommerce.controller("CategoriasController", ["$window", "CategoriaServic
         CategoriaService.updateCategoria(categoria).then(
             function(data){
                 self.nuevaCategoria();
-                self.loadCategorias();
+                self.getCategorias();
             },
             function(errorData){
                 $window.alert("ERROR!");
@@ -85,7 +85,7 @@ backendEcommerce.controller("CategoriasController", ["$window", "CategoriaServic
                 function(data){
                     self.selected = false;
                     self.nuevaCategoria();
-                    self.loadCategorias();
+                    self.getCategorias();
                 },
                 function(errorData){
                     $window.alert("ERROR!");
@@ -95,5 +95,5 @@ backendEcommerce.controller("CategoriasController", ["$window", "CategoriaServic
         }
     };
     
-    this.loadCategorias();
-}]);
+    this.getCategorias();
+});

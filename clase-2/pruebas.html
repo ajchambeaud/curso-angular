@@ -1,0 +1,45 @@
+<html ng-app="app">
+    <head>
+        <title>Clase 1 - AngularJS</title>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <style>
+            #container .panel{
+                margin: 20px;
+            }
+        </style>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script>
+            
+            var app = angular.module("app", []);
+            
+            app.controller("MainController", function($scope){
+            
+                this.nombre = "AngularJS";
+                
+            });
+            
+            app.directive("test", function(){
+                return {
+                    restrict : "E",
+                    templateUrl : "test.html",
+                    transclude : true,
+                    replace : true,
+                    scope : {
+                        nombre : "@name"
+                    }
+                }
+            });
+            
+            
+        </script>
+    </head>
+    <body>
+        <div ng-controller="MainController as main" id="container" class="container">
+            
+            <h1 >Intro Directivas</h1>
+            
+            <test name="main.nombre">Esto es una directiva</test>
+        </div>
+    </body>
+</html>

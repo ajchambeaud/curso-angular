@@ -3,12 +3,17 @@
     <div class="collapse navbar-collapse">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">
-            {{main.brand}}
+            {{brand}}
         </a>
       </div>
+        
       <ul class="nav navbar-nav">
-        <li ng-class="{active : main.isActive('cat')}"><a ui-sref="categorias">Categorías</a></li>
-        <li ng-class="{active : main.isActive('prod')}"><a ui-sref="productos">Productos</a></li>
+        <li ui-sref-active="active">
+            <a ui-sref="categorias">Categorías</a>
+        </li>
+        <li ui-sref-active="active">
+            <a ui-sref="productos">Productos</a>
+        </li>
       </ul>
     </div>
   </div>

@@ -1,29 +1,22 @@
-var app = angular.module("app");
+var tienda = angular.module("tienda");
 
-app.directive("test", function(){
+tienda.directive("selectAllButton", function(){
     return {
-        restrict : "AE",
-        templateUrl : "app/templates/test.html",
-        replace : true,
+        restrict : "E",
+        templateUrl : "app/templates/selectAllButton.html",
         scope : {
-            titulo : '@text',
-            descripcion : '=body',
-            saludo : '&saludo'
-        },
-        transclude : true
-    }
+            lista : "=lista",
+            onCheck : "=onCheck"
+        }
+    };
 });
 
-app.directive("alert", function(){
+tienda.directive("searchInput", function(){
     return {
-        restrict : 'E',
-        templateUrl : 'app/templates/alert.html',
+        restrict : "E",
+        templateUrl : "app/templates/searchInput.html",
         scope : {
-            type : '=type',
-            visible : '=visible',
-            title : '=title',
-            description : '=description',
-            close : '&close'
+            searchModel : "=searchModel"
         }
     };
 });

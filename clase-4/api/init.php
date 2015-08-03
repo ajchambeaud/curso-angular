@@ -26,6 +26,7 @@ function getConnection(){
     if ($mysqli->connect_errno) {
         sendError("Error al intentar establecer la coneccion a la base");
     }else{
+        $mysqli->query("SET NAMES 'utf8'");
         return $mysqli;
     }
 }
@@ -38,7 +39,7 @@ function sendResult($data, $msg){
 }
 
 function sendError($error){
-    http_response_code(500);
+    http_response_code(400);
     $result["error"] = true;
     $result["message"] = $error;
     die(json_encode($result));

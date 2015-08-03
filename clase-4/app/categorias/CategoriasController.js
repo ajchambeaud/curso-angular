@@ -1,21 +1,19 @@
 var categorias = angular.module("backendEcommerce.categorias");
 
-categorias.controller("CategoriasController", ["$window", "$scope", "CategoriaService", "$state", function($window, $scope, CategoriaService, $state){
+categorias.controller("CategoriasController", function($state, $window, CategoriaService){
 
-    $scope.main.active = "cat";
-    
     this.categorias = [];
     this.selected = false;
     this.categoria = {};
     this.nueva = {};
     this.formLabel = "Nueva Categoria";
     
-    this.loadCategorias = function(){
+    this.getCategorias = function(){
         var self = this;
-        CategoriaService.getCategorias().then(
+        return CategoriaService.getCategorias().then(
             function(data){
                 self.categorias = data.categorias;
-                console.log("loadCategorias OK");
+                console.log("getCategorias OK");
                 console.log(data);
             },
             function(errorData){
@@ -30,7 +28,7 @@ categorias.controller("CategoriasController", ["$window", "$scope", "CategoriaSe
         CategoriaService.createCategoria(categoria).then(
             function(data){
                 self.nuevaCategoria();
-                self.loadCategorias();
+                self.getCategorias();
             },
             function(errorData){
                 $window.alert("ERROR!");
@@ -44,7 +42,7 @@ categorias.controller("CategoriasController", ["$window", "$scope", "CategoriaSe
         CategoriaService.updateCategoria(categoria).then(
             function(data){
                 self.nuevaCategoria();
-                self.loadCategorias();
+                self.getCategorias();
             },
             function(errorData){
                 $window.alert("ERROR!");
@@ -89,7 +87,7 @@ categorias.controller("CategoriasController", ["$window", "$scope", "CategoriaSe
                 function(data){
                     self.selected = false;
                     self.nuevaCategoria();
-                    self.loadCategorias();
+                    self.getCategorias();
                 },
                 function(errorData){
                     $window.alert("ERROR!");
@@ -99,17 +97,21 @@ categorias.controller("CategoriasController", ["$window", "$scope", "CategoriaSe
         }
     };
     
-    this.loadCategorias();
-    
-    if($state.is("categorias.editar")){
+    this.setInitialState = function(){
         var self = this;
-        var id = $state.params.id;
-        CategoriaService.getCategoria({'categoria_id' : id}).then(
-            function(data){
-                self.selected = data.categoria;
-                self.editarCategoria();
+        this.getCategorias().then(function(){
+            if($state.is("categorias.editar")){
+               self.selected = self.categorias.filter(function(item){
+                  return item.categoria_id == $state.params.id;
+               })[0];
+               self.editarCategoria(); 
+            } else if($state.is("categorias.nueva")){
+               self.selected = false;
+               self.nueva = {};
+               self.nuevaCategoria(); 
             }
-        );
+        });       
     }
     
-}]);
+    this.setInitialState();
+});

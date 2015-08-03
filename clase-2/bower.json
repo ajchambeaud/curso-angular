@@ -1,11 +1,10 @@
 {
-  "name": "clase-2",
+  "name": "clase-1",
   "version": "0.0.1",
-  "homepage": "https://github.com/ajchambeaud/curso-angular",
   "authors": [
     "ajchambeaud <ajchambeaud@gmail.com>"
   ],
-  "description": "Segunda clase del curso de AngularJS dictado en LSL UTN-FRA",
+  "description": "Archivos de código de la clase 1 del curso de AngularJS LSL UTN-FRA",
   "license": "GPL",
   "private": true,
   "dependencies": {

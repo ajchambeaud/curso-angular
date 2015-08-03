@@ -2,9 +2,8 @@ var backendEcommerce = angular.module("backendEcommerce");
 
 backendEcommerce.service("CategoriaService", function($http){
 
-    var URI_BASE = 'http://curso.angular.local/clase-4/api/categorias.php?action=';
+    var URI_BASE = 'http://localhost/curso-angular/clase-4/api/categorias.php?action=';
     var URI = {
-        'GET' : URI_BASE + 'get',
         'LIST' : URI_BASE + 'list',
         'CREATE' : URI_BASE + 'create',
         'UPDATE' : URI_BASE + 'update',
@@ -31,10 +30,6 @@ backendEcommerce.service("CategoriaService", function($http){
     
     this.deleteCategoria = function(dataCategoria){
         return $http.post(URI.DELETE, dataCategoria).then(extractResponse);
-    };
-    
-    this.getCategoria = function(dataCategoria){
-        return $http.post(URI.GET, dataCategoria).then(extractResponse);
     };
     
 });

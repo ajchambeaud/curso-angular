@@ -26,6 +26,7 @@ function getConnection(){
     if ($mysqli->connect_errno) {
         sendError("Error al intentar establecer la coneccion a la base");
     }else{
+        $mysqli->query("SET NAMES 'utf8'");
         return $mysqli;
     }
 }

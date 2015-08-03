@@ -1,60 +1,73 @@
 <html ng-app="app">
     <head>
         <title>Clase 1 - AngularJS</title>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="styles.css" />
         <style>
-        
-            #container{
-                padding: 20px;
-                background-color: yellow;
+            #container .panel{
+                margin: 20px;
             }
-
-            #hijo {
-                padding: 20px;
-                background-color: white;
-            }
-            
         </style>
         <script src="bower_components/angular/angular.min.js"></script>
         <script>
             
             var app = angular.module("app", []);
             
-            app.controller("mainController", function($scope){
-                
-                this.titulo = "AngularJS - Clase 1";
-                
-                this.nombre = "Ainu";
+            app.controller("MainController", function($scope){
+            
+                this.usuario = {
+                    nombre : "AngularJS"
+                };
                 
             });
-           
-            app.controller("otroController", function($scope){
+            
+            app.controller("ChildController", function($scope){
+            
+                $parent.usuario.nombre = "React";
                 
-                this.foo = "bar";
-                this.titulo = "Otro Titulo";
-                
-                console.log("Accediendo a variables del padre");
-                
-                console.log($scope.main.nombre);
             });
             
             
         </script>
     </head>
     <body>
-        <div id="container" ng-controller="mainController as main">
+        <div id="container" class="container">
             
-            <h1>{{main.titulo}}</h1>
+            <h1>Intro AngularJS</h1>
             
-            <input type="text" ng-model="main.nombre" value=""/>
             
-            <p>{{main.nombre}}</p>
+            <div ng-controller="MainController as main" class="panel panel-warning">
             
-            <div ng-controller="otroController as otro" id="hijo">
+                <div class="panel-heading">
+                    Main Controller
+                </div>
                 
-                <input type="text" ng-model="main.nombre" value=""/>
-                <p>{{main.nombre}}</p>
-                <p>{{otro.titulo}}</p>
+                <div class="panel-body">
+                    
+                    <input ng-model="main.usuario.nombre" type="text" class="form-control" />
+                    <h1>{{main.usuario.nombre}}</h1>
+                    
+                </div>
+                
+                
+                
+                <div ng-controller="ChildController as child" class="panel panel-info">
+                    <div class="panel-heading">
+                        Child Controller
+                    </div>
+                    <div class="panel-body">
+
+                        <input ng-model="main.usuario.nombre" type="text" class="form-control" />
+                        <h1>{{main.usuario.nombre}}</h1>
+
+                    </div>
+                </div>
+                
+                
+                
+                
             </div>
+            
             
         </div>
     </body>

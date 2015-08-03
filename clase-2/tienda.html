@@ -31,56 +31,10 @@
             }
         </style>
         
-        <script>
-            
-            var tienda = angular.module("tienda", []);
-            
-            tienda.controller("MainController", function(){
-            
-                this.tiendaLabel = "Tienda";
-                this.equipoLabel = "Equipo";
-                this.listaTienda = [
-                    { 
-                        name : "Cloak of Agility",
-                        cost : 10
-                    },
-                    { 
-                        name : "Phage",
-                        cost : 7
-                    },
-                    { 
-                        name : "Pickaxe",
-                        cost : 8
-                    }
-                ];
-                this.listaEquipo = [
-                    { 
-                        name : "Archangel's Staff",
-                        cost : 6
-                    },
-                    { 
-                        name : "Tear of the Goddess",
-                        cost : 12
-                    }
-                ];
-                this.listaTienda.selected = false;
-                this.listaEquipo.selected = false;
-                
-                
-                this.toggleItem = function(item){
-                    item.selected = !item.selected;
-                };
-                
-                this.toggleLista = function(lista){
-                    lista.forEach(function(item){
-                        item.selected = !lista.selected;
-                    });
-                    lista.selected = !lista.selected;
-                }
-                
-            });
-            
-        </script>
+        <script src="app/app.js"></script>
+        <script src="app/controllers.js"></script>
+        <script src="app/filters.js"></script>
+        <script src="app/directives.js"></script>
        
     </head>
     <body>
@@ -97,22 +51,10 @@
                         <div class="col-md-12">
                             <form class="form-inline">
                               <!-- <BOX_TIENDA_INPUT_BUSQUEDA> -->    
-                              <div class="form-group">
-                                <div class="input-group busqueda-group">
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                  </span>
-                                  <input ng-model="main.filtroTienda.name" type="text" class="form-control" placeholder="Buscar">
-                                </div>
-                              </div>
+                              <search-input search-model="main.filtroTienda"></search-input>    
                               <!-- </BOX_TIENDA_INPUT_BUSQUEDA> -->    
                               <!-- <BOX_TIENDA_SELECT_ALL> -->  
-                              <button ng-click="main.toggleLista(main.listaTienda)" class="btn btn-default">
-                                  &nbsp;
-                                  <i class="glyphicon glyphicon-check"
-                                     ng-class="main.listaTienda.selected ? 'glyphicon-check' : 'glyphicon-unchecked' "></i>
-                                  &nbsp;
-                              </button>
+                              <select-all-button lista="main.listaTienda" on-check="main.toggleLista"></select-all-button>    
                               <!-- </BOX_TIENDA_SELECT_ALL> -->
                             </form>
                         </div>
@@ -125,7 +67,8 @@
                                     ng-repeat="item in main.listaTienda | filter : main.filtroTienda"
                                     ng-click="main.toggleItem(item)"
                                     ng-class="{ active : item.selected }">
-                                    {{ item.name | uppercase }}
+                                    {{ item.name | uppercase }} - 
+                                    {{ item.cost | dolar }}
                                 </li>                                
                             </ul>
                         </div>   
@@ -137,11 +80,11 @@
                 
                 <!-- <MOVE_BUTTONS> -->
                 <div class="list-arrows col-md-1 text-center">
-                    <button class="btn btn-default btn-sm move-left">
+                    <button ng-click="main.move(main.listaEquipo, main.listaTienda)" class="btn btn-default btn-sm move-left">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </button>
 
-                    <button class="btn btn-default btn-sm move-right">
+                    <button ng-click="main.move(main.listaTienda, main.listaEquipo)" class="btn btn-default btn-sm move-right">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </button>
                 </div>
@@ -154,22 +97,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <form class="form-inline">
-                              <!-- <BOX_USUARIO_SELECT_ALL> -->
-                              <button class="btn btn-default">
-                                  &nbsp;
-                                  <i class="glyphicon glyphicon-unchecked"></i>
-                                  &nbsp;
-                              </button>
+                              <!-- <BOX_USUARIO_SELECT_ALL> -->          
+                              <select-all-button lista="main.listaEquipo" on-check="main.toggleLista"></select-all-button> 
                               <!-- </BOX_USUARIO_SELECT_ALL> -->
                               <!-- <BOX_USUARIO_INPUT_BUSQUEDA> -->    
-                              <div class="form-group">
-                                <div class="input-group busqueda-group">
-                                  <input type="text" class="form-control" placeholder="Buscar">
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                  </span>
-                                </div>
-                              </div>
+                              <search-input search-model="main.filtroEquipo"></search-input>
                               <!-- </BOX_USUARIO_INPUT_BUSQUEDA> -->     
                             </form>
                         </div>
@@ -179,7 +111,7 @@
                         <div class="col-md-12">
                             <ul class="list-group">
                                 <li class="list-group-item"
-                                    ng-repeat="item in main.listaEquipo"
+                                    ng-repeat="item in main.listaEquipo | filter : main.filtroEquipo"
                                     ng-click="main.toggleItem(item)"
                                     ng-class="{ active : item.selected }">
                                     {{ item.name }}

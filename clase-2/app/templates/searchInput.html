@@ -1,0 +1,9 @@
+<div class="form-group">
+    <div class="input-group busqueda-group">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-search"></span>
+      </span>
+      <input ng-model="searchModel.name" type="text" class="form-control" placeholder="Buscar">
+    </div>
+    <p>{{searchModel.name | limitar : 5}}</p>
+</div>
