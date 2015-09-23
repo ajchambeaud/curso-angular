@@ -5,7 +5,6 @@ backendEcommerce.controller("CategoriasController", function($window, CategoriaS
     this.categorias = [];
     this.selected = false;
     this.categoria = {};
-    this.nueva = {};
     this.formLabel = "Nueva Categoria";
     
     this.getCategorias = function(){
